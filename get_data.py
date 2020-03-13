@@ -2,7 +2,7 @@ import time
 import requests
 import re
 import json
-
+import codecs
 from bs4 import BeautifulSoup
 
 def get_menu_data(soup,data):
@@ -73,7 +73,7 @@ def main():
         print(len(menu_links)-i,d)
         D[i] = d
         time.sleep(2)
-    with open("./menus.json","w") as f:
+    with codecs.open("./menus.json","w","utf-8") as f:
         json.dump(D,f,ensure_ascii=False,indent=4)
 if __name__=="__main__":
     main()

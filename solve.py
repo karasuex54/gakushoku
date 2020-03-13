@@ -1,10 +1,12 @@
 # pulp v.1.6.0
-
+## -*- coding: utf-8 -*-
 import json
 import pulp
+import codecs
+
 def read_json():
     res = []
-    with open("./menus.json") as f:
+    with codecs.open("./menus.json","r","utf-8") as f:
         df = json.load(f)
     N = len(df)
     menu_names = []
@@ -42,7 +44,7 @@ def main():
     cate = {2:"energy",3:"protein",4:"fat",5:"carbohydrates",6:"salt",7:"red",8:"green",9:"yellow"}
     for i in range(2,10):
         print(cate[i])
-        l,r = map(int,input().split())
+        l,r = map(float,input().split())
         problem+=pulp.lpDot(x,df[i])>=l
         problem+=pulp.lpDot(x,df[i])<=r
     print(problem)
@@ -50,5 +52,7 @@ def main():
     if status==1:
         print([df[0][i] for i in range(len(x)) if x[i].value() == 1])
         print(problem.objective.value())
+    else:
+        print("not solve")
 if __name__=="__main__":
     main()
