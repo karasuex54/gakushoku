@@ -39,14 +39,12 @@ def main():
     print(x)
     print(df[1])
     problem+=pulp.lpDot(x,df[1])
-    problem+=pulp.lpDot(x,df[2])>=883 # energy
-    # protein
-    problem+=pulp.lpDot(x,df[4])<=25 # fat
-    # carbohydrates
-    problem+=pulp.lpDot(x,df[6])<=2 # salt
-    problem+=pulp.lpDot(x,df[7])>=2 # red
-    problem+=pulp.lpDot(x,df[8])>=1 # green
-    problem+=pulp.lpDot(x,df[9])>=5 # yellow
+    cate = {2:"energy",3:"protein",4:"fat",5:"carbohydrates",6:"salt",7:"red",8:"green",9:"yellow"}
+    for i in range(2,10):
+        print(cate[i])
+        l,r = map(int,input().split())
+        problem+=pulp.lpDot(x,df[i])>=l
+        problem+=pulp.lpDot(x,df[i])<=r
     print(problem)
     status=problem.solve()
     if status==1:
